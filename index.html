@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>maqam-toolkit</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <!-- TODO 1: heading and short description -->
+    <h1>Drone</h1>
+    <p>A steady reference tone to play against</p>
+    <!-- TODO 2: root note controls (note + octave) -->
+    <div class="row">
+        <label for="note">Root note</label>
+        <div class="pair">
+            <select id="note"></select>
+            <select id="octave" aria-label="Octave"></select>
+        </div>
+    </div>
+    <!-- TODO 3: waveform dropdown -->
+     <div class="row">
+        <label for="wave">waveform</label>
+        <select id="wave">
+            <option value="sine">Sine (pure)</option>
+            <option value="triangle" selected>Triangle (mellow)</option>
+            <option value="sawtooth">Sawtooth (bright)</option>
+        </select>
+     </div>
+
+    <!-- TODO 4: volume slider -->
+     <div class="row">
+        <label for="volume"> Volume</label>
+        <input id="volume" type="range" min="0" max="0.5" step="0.01" value="0.2">
+     </div>
+
+    <!-- TODO 5: checkbox "add a fifth above" -->
+     <div class="row">
+        <label for="fifth">Add a fifth above</label>
+        <input id="fifth" type="checkbox">
+     </div>
+
+    <!-- TODO 6: Start / Stop button -->
+     <button id="toggle" type="button" aria-pressed="false">Start</button>
+  </main>
+
+  <script src="drone.js"></script>
+</body>
+</html>
