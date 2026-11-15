@@ -85,5 +85,41 @@ rootOsc.start();
 fifthOsc.start();
 masterGain.gain.value = 0;
 // TODO 5: apply the controls' settings to the sound
+const FIFTH_LEVEL = 0.6; // how loud the fifth is compared to the root
+let isPlaying = false;
+
+function applySettings(){
+    const now = audioContext.currentTime; //sound's motor clock
+
+    //pith: the root follows thr note/octave menus, thr fifth sits 7 semitone above it
+    const rootFreq = getRootFreq();
+    rootOsc.frequency.setTargetAtTime(rootFreq, now, 0.03);
+    fifthOsc.frequency.setTargetAtTime(transpose(rootFreq, INTERVALS.PERFECT_FIFTH), now, 0.03);
+
+    rootOsc.type = waveSelect.value;
+    fifthOsc.type = waveSelect.value;
+
+    //Fifth on/off.
+    fifthGain.gain.setTargetAtTime(fifthCheckbox.checked ? FIFTH_LEVEL : 0, now, 0.05);
+    
+    //Volume is silent unless thr drone is playing
+    const volume = isPlaying? Number(volumeSlider.value) : 0;
+    masterGain.gain.setTargetAtTime(volume, now, 0.15);
+}
 
 // TODO 6: Start / Stop and event listeners
+async function toggle() {
+  isPlaying = !isPlaying;
+  //waith untill the sound motor began before moving forward
+  if (isPlaying) await audioContext.resume();
+  applySettings();
+
+  toggleButton.textContent = isPlaying ? 'Stop' : 'Start';
+  toggleButton.setAttribute('aria-pressed', String(isPlaying));
+}
+
+toggleButton.addEventListener('click', toggle);
+
+[noteSelect, octaveSelect, waveSelect, volumeSlider, fifthCheckbox].forEach((control) => {
+  control.addEventListener('input', applySettings); //the event that is sent when changing a menu
+});
