@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>maqam-toolkit - tuner</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>Tuner</h1>
+    <p>Play a note into the microphone and see how far you are from the nearest degree of the maqam.</p>
+
+    <div class="row">
+      <label for="maqam">Maqam</label>
+      <select id="maqam"></select>
+    </div>
+
+    <div class="row">
+      <label for="note">Tonic</label>
+      <div class="pair">
+        <select id="note"></select>
+        <select id="octave" aria-label="Octave"></select>
+      </div>
+    </div>
+
+    <!-- Readout: filled in by tuner.js -->
+    <div class="row">
+      <span>Detected</span>
+      <output id="freq">-</output>
+    </div>
+    <div class="row">
+      <span>Nearest degree</span>
+      <output id="degree">-</output>
+    </div>
+    <div class="row">
+      <span>Deviation</span>
+      <output id="cents">-</output>
+    </div>
+
+    <!-- TODO (optional, later): a needle/meter that moves between -50 and +50 cents -->
+
+    <button id="toggle" type="button" aria-pressed="false">Start microphone</button>
+  </main>
+
+  <!-- type="module" so we can use import/export. Needs a local server (not file://). -->
+  <script type="module" src="tuner.js"></script>
+</body>
+</html>
