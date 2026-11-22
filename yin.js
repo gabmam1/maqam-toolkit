@@ -41,7 +41,7 @@ function differenceFunction(buffer, maxLag) {
     }
     d[tau] = sum;
   }
-  return d
+  return d;
 }
 
 // Step 2: cumulative mean normalized difference (CMND).
@@ -58,7 +58,7 @@ function cumulativeMeanNormalizedDifference (d) {
   cmnd[0] = 1;
 
   let runningSum = 0;
-  for (let tau = 0; tau < d.length; tau++) {
+  for (let tau = 1; tau < d.length; tau++) {
     if (!Number.isFinite(d[tau]) || d[tau] < 0) {
       throw new Error(
         `cumulativeMeanNormalizedDifference: d[${tau}] must be a finite number >= 0, got ${d[tau]}`
